@@ -600,6 +600,7 @@ Provide the output in JSON format with the following structure:
 
     except Exception as e:
         logger.error(f"Unhandled error: {e}")
+        return None
 def select_voice(script_text):
     """
     Selects the most appropriate voice from the VOICES dictionary based on the complete script.
