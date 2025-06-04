@@ -1,6 +1,7 @@
 import os
 import json
 import requests
+import logging
 from dotenv import load_dotenv
 from pathlib import Path
 
@@ -13,10 +14,13 @@ AUDIO_DIR = Path("audio")
 AUDIO_DIR.mkdir(exist_ok=True)
 CHUNK_SIZE = 1024
 
-if not ELEVENLABS_API_KEY:
-    print("ElevenLabs API key is missing in .env or not being loaded.")
-else:
-    print("ElevenLabs API key loaded successfully.")
+logger = logging.getLogger(__name__)
+
+def log_api_key_status():
+    if not ELEVENLABS_API_KEY:
+        logger.warning("ElevenLabs API key is missing in .env or not being loaded.")
+    else:
+        logger.info("ElevenLabs API key loaded successfully.")
 
 # Define the available voices with their names and corresponding IDs
 VOICE_OPTIONS = {
@@ -133,7 +137,7 @@ def process_tts(script_data, audio_dir=AUDIO_DIR):
     Supports both short and long video JSON structures.
     """
     if not ELEVENLABS_API_KEY:
-        print("ElevenLabs API key is not available. Exiting process.")
+        logger.error("ElevenLabs API key is not available. Exiting process.")
         return script_data
 
     # Get the tone from the script settings
@@ -200,6 +204,8 @@ def load_script_from_json(json_path):
 
 # Example usage
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
+    log_api_key_status()
     # Prompt user for JSON file path
     json_path = input("Enter the path to the JSON file to use: ").strip()
 
