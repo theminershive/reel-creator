@@ -34,10 +34,12 @@ This application automates the creation of short vertical videos (e.g., TikTok/R
 
 ## Usage
 
-Run the main script and follow prompts:
+Run the main script and follow prompts or supply options on the command line:
 
 ```bash
-python app.py
+python app.py --topic "My Video" --length 60 --num-sections 3 --num-segments 2
 ```
+
+If any required parameters are omitted, the script will prompt for them interactively.
 
 Videos and assets will be saved under `output/`.

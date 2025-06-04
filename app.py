@@ -1,5 +1,6 @@
 import os
 import json
+import argparse
 from pathlib import Path
 
 from scripts import generate_video_script
@@ -19,6 +20,17 @@ from config import VISUALS_DIR, VIDEO_SCRIPTS_DIR, FINAL_VIDEO_DIR
 # Ensure required directories exist
 for directory in [VISUALS_DIR, VIDEO_SCRIPTS_DIR, FINAL_VIDEO_DIR]:
     directory.mkdir(parents=True, exist_ok=True)
+
+
+def parse_args():
+    """Parse command line arguments."""
+    parser = argparse.ArgumentParser(description="Generate a short AI-driven video")
+    parser.add_argument("--topic", help="Video topic")
+    parser.add_argument("--size", default="1080x1920", help="Video size, e.g., 1080x1920")
+    parser.add_argument("--length", type=int, help="Total video length in seconds")
+    parser.add_argument("--num-sections", type=int, dest="num_sections", help="Number of sections")
+    parser.add_argument("--num-segments", type=int, dest="num_segments", help="Number of segments per section")
+    return parser.parse_args()
 
 
 def get_user_input():
@@ -69,7 +81,15 @@ def create_captions(video_path):
 
 
 def main():
-    topic, size, length, num_sections, num_segments = get_user_input()
+    args = parse_args()
+    if all([args.topic, args.length, args.num_sections, args.num_segments]):
+        topic = args.topic
+        size = args.size
+        length = args.length
+        num_sections = args.num_sections
+        num_segments = args.num_segments
+    else:
+        topic, size, length, num_sections, num_segments = get_user_input()
 
     # 1. Generate initial video script
     script = generate_video_script(topic, length, size, num_sections, num_segments)
