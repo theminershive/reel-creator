@@ -74,6 +74,8 @@ def get_default_font() -> str:
         return font_path
 
     import matplotlib.font_manager as fm
+
+    # fallback to DejaVu Sans
     fallback = fm.findfont("DejaVu Sans")
     if os.path.isfile(fallback):
         return fallback
