@@ -41,5 +41,3 @@ python app.py
 ```
 
 Videos and assets will be saved under `output/`.
-
-# reel-creator
