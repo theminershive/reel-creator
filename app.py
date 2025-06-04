@@ -55,7 +55,7 @@ def generate_and_download_images(script, model_style="Leonardo Phoenix"):
 
 
 def create_captions(video_path):
-    """Run Whisper via capwhisp helper to create caption list."""
+    """Run Whisper via the captions helper to create a caption list."""
     audio_temp = captions.extract_audio(video_path)
     transcription = captions.transcribe_audio_whisper(audio_temp)
     cap_list = captions.generate_captions_from_whisper(transcription)
