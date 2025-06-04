@@ -42,4 +42,13 @@ python app.py
 
 Videos and assets will be saved under `output/`.
 
+## Running Tests
+
+Install `pytest` if it is not already available and run the test suite:
+
+```bash
+pip install pytest
+pytest
+```
+
 # reel-creator
