@@ -427,7 +427,6 @@ def generate_video_script(topic, length, size, num_sections, num_segments):
                 "   - Provide relevant tags to enhance discoverability."
             )
             social_media_json_block = f'"social_media": {json.dumps(social_media, indent=4)}'
-            social_media_json_block = f'"social_media": {json.dumps(social_media, indent=4)}'
         prompt_json = json.dumps(script_json, indent=4)
 
         # Construct the prompt for OpenAI to generate the actual script without background_music
