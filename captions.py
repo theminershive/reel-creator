@@ -22,8 +22,10 @@ def extract_audio(input_video_path: str) -> str:
         video = VideoFileClip(input_video_path)
         audio = video.audio
         with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as temp_audio_file:
-            audio.write_audiofile(temp_audio_file.name, codec='pcm_s16le')
-            return temp_audio_file.name
+            audio.write_audiofile(temp_audio_file.name, codec="pcm_s16le")
+            audio_path = temp_audio_file.name
+        video.close()
+        return audio_path
     except Exception as e:
         print(f"Error extracting audio: {e}")
         return ""
@@ -70,15 +72,12 @@ def get_default_font() -> str:
     font_path = str((BASE_DIR / font_path).resolve()) if not os.path.isabs(font_path) else font_path
     if os.path.isfile(font_path):
         return font_path
-    # fallback to DejaVu Sans
-    import matplotlib.font_manager as fm
-    return fm.findfont("DejaVu Sans")
 
-    # fallback to DejaVu Sans
     import matplotlib.font_manager as fm
     fallback = fm.findfont("DejaVu Sans")
     if os.path.isfile(fallback):
         return fallback
+
     raise FileNotFoundError(f"Font file not found: {font_path}")
 
 # Function to check if text fits within the video width (handles multi-line)
