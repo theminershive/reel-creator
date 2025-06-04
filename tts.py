@@ -2,15 +2,13 @@ import os
 import json
 import requests
 from dotenv import load_dotenv
-from pathlib import Path
+from config import AUDIO_DIR
 
 # Load environment variables from .env
 load_dotenv()
 
 # Constants
 ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY")
-AUDIO_DIR = Path("audio")
-AUDIO_DIR.mkdir(exist_ok=True)
 CHUNK_SIZE = 1024
 
 if not ELEVENLABS_API_KEY:
